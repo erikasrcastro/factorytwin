@@ -15,7 +15,7 @@ class SensorPeca(Node):
         )
 
         self.peca_detectada = False
-        self.timer = self.create_timer(1.0, self.verificar_peca)
+        self.timer = self.create_timer(2.0, self.verificar_peca)
 
     def verificar_peca(self):
         self.peca_detectada = not self.peca_detectada

@@ -101,3 +101,23 @@ Local development using free tools. No GitHub Actions, paid CI services, or paid
 **v0.1 — Initial working prototype**
 
 The project is under active development as part of a practical robotics and embodied AI learning journey.
+
+## Reliability Testing — Day 1
+
+The following tests were performed using ROS 2 and Python.
+
+| Test | Configuration | Observed result |
+|---|---|---|
+| Normal operation | Sensor: 2s, timeout: 3s | Messages processed without observed errors |
+| Sensor interruption | Sensor process stopped | Communication failure detected |
+| Communication recovery | Sensor restarted | Communication restored |
+| False-positive injection | Sensor: 2s, timeout: 1s | Repeated false alarms |
+| Watchdog frequency experiment | Watchdog: 2s, timeout: 3s | Failure reported after approximately 4.4s |
+
+### Engineering Findings
+
+- The sensor publication interval and watchdog timeout must be configured together.
+- A watchdog can report false failures when its timeout is shorter than the expected message interval.
+- The watchdog check frequency affects failure detection latency.
+- Recovery was observed after sensor communication resumed.
+- Tests were conducted with simulated messages, not physical industrial equipment.
